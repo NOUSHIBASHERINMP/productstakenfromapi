@@ -1,0 +1,82 @@
+<html>
+  <body>
+    <h1>Hello It Is Loading data From Api</h1>
+  </body>
+  <script>
+    var product_shown = "";
+    var productPromise = fetch("https://dummyjson.com/products");
+    productPromise.then(
+      (response) => {
+        //console.log('response has been Notified');
+        response.json().then(
+          (data) => {
+            class Products {
+              id = 0;
+              title = "";
+              description = "";
+              category = "";
+              price = 0;
+              rating = 0;
+              discountPercentage = 0;
+              brand = "";
+              images = [];
+              stock = 0;
+              thumbnail = "";
+
+              constructor(
+                _id,
+                _title,
+                _description,
+                _category,
+                _price,
+                _rating,
+                _discountPercentage,
+                _brand,
+                _images,
+                _stock,
+                _thumbnail
+              ) {
+                this.id = _id;
+                this.title = _title;
+                this.description = _description;
+                this.category = _category;
+                this.price = _price;
+                this.rating = _rating;
+                this.discountPercentage = _discountPercentage;
+                this.brand = _brand;
+                this.images = _images;
+                this.stock = _stock;
+                this.thumbnail = _thumbnail;
+              }
+            }
+            var products_taken = data.products;
+            //console.log(products_taken);
+            for (var d of products_taken) {
+              let products = new Products(
+                d.id,
+                d.title,
+                d.description,
+                d.category,
+                d.price,
+                d.rating,
+                d.discountPercentage,
+                d.brand,
+                d.images,
+                d.stock,
+                d.thumbnail
+              );
+
+              console.log("The Product is", products);
+            }
+          },
+          (Error) => {
+            console.log("Error has been Occured");
+          }
+        );
+      },
+      (error) => {
+        console.log("Error Notified As 404");
+      }
+    );
+  </script>
+</html>
